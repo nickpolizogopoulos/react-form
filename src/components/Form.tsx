@@ -10,7 +10,7 @@ const schema = z.object({
     email: z.string()
             .email({ message: 'Invalid email address.' }),
     password: z.string({required_error: 'Password is required'})
-               .min(7, { message: "Password must be 7 or more characters long." })
+               .min(7, { message: "Password should be at least 7 characters long." })
                .max(14, {message: 'Password length should not exceed 14 characters'}),
     confirm: z.string(),
     phone: z.number({invalid_type_error: 'Phone is required.'})
