@@ -12,7 +12,7 @@ const schema = z.object({
     password: z.string({required_error: 'Password is required'})
                .min(7, { message: "Password should be at least 7 characters long." })
                .max(14, {message: 'Password length should not exceed 14 characters'}),
-    confirm: z.string(),
+    confirm: z.string().min(7).max(14),
     phone: z.number({invalid_type_error: 'Phone is required.'})
             .int({message: 'Mobile Phone number should not contain any commas.'})
             .gte(6900000000, {message: 'The Mobile Phone number should start from 69 and be 10 characters long.'})
@@ -42,50 +42,63 @@ const Form = () => {
 
     return (
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-text mb-3 text-danger">
-                All fields are required*
-            </div>
-    
-            <div className="mb-3">
-                <input { ...register('name') } id="name" type="text" className="form-control" placeholder="Name" />
-                { errors.name && <p className='text-danger'>{errors.name.message}</p> }
-            </div>
-    
-            <div className="mb-3">
-                <input { ...register('age', {valueAsNumber: true} ) } id="age" type="number" className="form-control" placeholder="Age" />
-                { errors.age && <p className='text-danger'>{errors.age.message}</p> }
-            </div>
+        <div className='container'>
 
-            <div className="mb-3">
-                <input { ...register('phone', {valueAsNumber: true}) } id="phone" type="number" className="form-control" placeholder="Mobile Phone" />
-                { errors.phone && <p className='text-danger'>{errors.phone.message}</p> }
-            </div>
-    
-            <div className="mb-3">
-                <input { ...register('email') } id="email" type="text" className="form-control" placeholder="Email" />
-                { errors.email && <p className='text-danger'>{errors.email.message}</p> }
-            </div>
-    
-            <div className="mb-3">
-                <input {...register('password')} id="password" type="password" className="form-control" placeholder="Password" />
-                { errors.password && <p className='text-danger'>{errors.password.message}</p> }
-                <div className="form-text">
-                    Your password must be 7-14 characters long.
+            <div className="row">
+
+                <div className="col-sm-3 titlebox p-3">
+                    <h1>This is a contact form</h1>
+                    <p className="lead mt-4">It's made with React, TypeScript, React Hook Form and Zod.</p>
+                </div>
+
+                <div className="col col-sm-4 formbox p-3">
+                    
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="form-text mb-3 text-danger">
+                                All fields are required*
+                            </div>
+                    
+                            <div className="mb-3">
+                                <input { ...register('name') } id="name" type="text" className="form-control" placeholder="Name" />
+                                { errors.name && <p className='text-danger'>{errors.name.message}</p> }
+                            </div>
+                    
+                            <div className="mb-3">
+                                <input { ...register('age', {valueAsNumber: true} ) } id="age" type="number" className="form-control" placeholder="Age" />
+                                { errors.age && <p className='text-danger'>{errors.age.message}</p> }
+                            </div>
+
+                            <div className="mb-3">
+                                <input { ...register('phone', {valueAsNumber: true}) } id="phone" type="number" className="form-control" placeholder="Mobile Phone" />
+                                { errors.phone && <p className='text-danger'>{errors.phone.message}</p> }
+                            </div>
+                    
+                            <div className="mb-3">
+                                <input { ...register('email') } id="email" type="text" className="form-control" placeholder="Email" />
+                                { errors.email && <p className='text-danger'>{errors.email.message}</p> }
+                            </div>
+                    
+                            <div className="mb-3">
+                                <input {...register('password')} id="password" type="password" className="form-control" placeholder="Password" />
+                                { errors.password && <p className='text-danger'>{errors.password.message}</p> }
+                                <div className="form-text">
+                                    Your password must be 7-14 characters long.
+                                </div>
+                            </div>
+                    
+                            <div className="mb-3">
+                                <input {...register('confirm')} id="confirm" type="password"  className="form-control" placeholder="Confirm Password" />
+                                { errors.confirm && <p className='text-danger'>{errors.confirm.message}</p> }
+                            </div>
+                    
+                            <button
+                                type="submit"
+                                className='btn btn-outline-primary rounded-0'>Submit
+                            </button>
+                        </form>
                 </div>
             </div>
-    
-            <div className="mb-3">
-                <input {...register('confirm')} id="confirm" type="password"  className="form-control" placeholder="Confirm Password" />
-                { errors.confirm && <p className='text-danger'>{errors.confirm.message}</p> }
-            </div>
-    
-            <button
-                type="submit"
-                className='btn btn-outline-primary rounded-0'>Submit
-            </button>
-    
-        </form>
+        </div>
         )
 }
 
